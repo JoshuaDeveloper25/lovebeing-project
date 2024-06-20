@@ -1,18 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import FormCreateProfile from "./components/FormCreateProfile";
 import getFastApiErrors from "../../utils/getFastApiErrors";
+import { useEffect, useState } from "react";
 import Profiles from "./components/Profiles";
 import Modal from "../../components/Modal";
 import { GoPlus } from "react-icons/go";
 import { toast } from "react-toastify";
-import { useState } from "react";
 import axios from "axios";
 
 import cloudsVideo from "../../assets/clouds.mp4";
 
 const MyProfiles = () => {
   const [openModal, setOpenModal] = useState(false);
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient(); 
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["ownProfiles"],
@@ -57,7 +57,7 @@ const MyProfiles = () => {
 
   return (
     <>
-      <video className="w-full h-80 object-cover" loop autoPlay muted>
+      <video className="w-full h-60 object-cover" loop autoPlay muted>
         <source src={cloudsVideo} type="video/mp4" />
         Your browser does not support HTML video.
       </video>

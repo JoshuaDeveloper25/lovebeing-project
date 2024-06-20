@@ -1,3 +1,4 @@
+import ViewAnimationScroll from "../../../components/ViewAnimationScroll";
 import { useNavigate } from "react-router-dom";
 import {
   FaPencilAlt,
@@ -12,11 +13,14 @@ import { FaTrash } from "react-icons/fa6";
 const Profiles = ({ profiles }) => {
   const navigate = useNavigate();
 
+  // For the scrolling cards animation
+  ViewAnimationScroll();
+
   return (
     <article className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
       {profiles.map((item, idx) => {
         return (
-          <div className="shadow-2xl" key={idx}>
+          <div className="reveal shadow-2xl" key={idx}>
             <img
               src={
                 item?.cover_images?.cloud_front_domain
