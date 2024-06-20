@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwind components made by myselfI */
+@layer components {
+  .container-page {
+    @apply max-w-[1200px] mx-auto px-2;
+  }
+
+  .animation-fade {
+    @apply duration-300 transition-all ease-in-out;
+  }
+
+  .heading-title {
+    @apply font-[600] text-3xl text-[#31353A];
+  }
+
+  .form-input-focus {
+    @apply border-b-2 border-[#eae9e9] rounded outline-0 shadow-[0_0_0_.0rem_rgba(0,0,0,0.4)] px-2 py-2;
+  }
+
+  .form-input-focus:focus {
+    @apply shadow-[0_0_0_.15rem_rgba(0,105,255,.4)];
+  }
+
+  .form-input-normal {
+    @apply mt-2 animation-fade w-full outline-none block border-b-2 border-primary-color;
+  }
+
+  .dashboard-active {
+    @apply bg-black text-white px-5 py-3 w-full inline-block font-bold;
+  }
+
+  .dashboard-inactive {
+    @apply hover:bg-slate-200 hover:animation-fade px-5 py-3 w-full inline-block font-medium;
+  }
+
+  .btn {
+    @apply w-full py-2 px-4 rounded-lg font-medium cursor-pointer;
+  }
+
+  .btn-blue {
+    @apply bg-primary-color text-white;
+  }
+}
+
+/* Sidebar Settings Profile Editing Styles */
+.css-dip3t8 {
+  background: #0a023b !important;
+}
+
+.css-16jesut > .ps-menu-button:hover {
+  background: rgba(10, 2, 59, 0.79) !important;
+}
+
+.css-18unl23 {
+  background: transparent !important;
+}
+
+.css-1tqrhto > .ps-menu-button:hover {
+  background: rgba(26, 1, 186, 0.293) !important;
+}
+
+.css-1wvake5 {
+  border: 0 !important;
+}

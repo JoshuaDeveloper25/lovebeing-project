@@ -7,7 +7,7 @@ const Settings = () => {
   const [triggerEffect, setTriggerEffect] = useState(false);
   const [profilePosition, setProfilePosition] = useState("left");
   const [profileShapeImage, setProfileShapeImage] = useState("circle");
-  const [toggledMenuHam, setToggledMenuHam] = useState(false);
+  const [toggled, setToggled] = useState(false);
 
   return (
     <div className="flex h-full min-h-[100vh]">
@@ -15,8 +15,8 @@ const Settings = () => {
         setTriggerEffect={setTriggerEffect}
         setProfilePosition={setProfilePosition}
         setProfileShapeImage={setProfileShapeImage}
-        toggledMenuHam={toggledMenuHam}
-        setToggledMenuHam={setToggledMenuHam}
+        setToggled={setToggled}
+        toggled={toggled}
       />
 
       <main className="flex-[75%] p-2 overflow-x-hidden">
@@ -24,7 +24,7 @@ const Settings = () => {
           {/* Hamburguer Button */}
           <button
             className="sb-button min-[768px]:hidden"
-            onClick={() => setToggledMenuHam(!toggledMenuHam)}
+            onClick={() => setToggled(!toggled)}
           >
             <FiMenu className="size-8" />
           </button>

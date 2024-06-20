@@ -37,15 +37,14 @@ const ImagesHandle = ({ setImages, images  }) => {
           </div>
 
           {images.length !== 0 && (
-            <ul className="flex gap-5 overflow-x-auto w-full max-w-lg py-5 mb-5">
+            <ul className="flex gap-5 py-5">
               {images?.map((item, idx) => (
-                <li key={idx} className="h-32 min-w-32 mx-auto relative">
+                <li key={idx} className="relative">
                   <div className="relative">
                     <img
                       src={`${item?.dataURL}`}
                       alt="Image"
-                      fill
-                      className="h-36 w-36"
+                      className="w-full"
                     />
                   </div>
 

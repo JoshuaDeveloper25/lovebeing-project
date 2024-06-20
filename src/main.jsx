@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { AppProvider } from "./context/AppProvider";
 
 // --> 🔗	Styles
-import "./index.css";
+import "./styles/index.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-image-crop/dist/ReactCrop.css";
 

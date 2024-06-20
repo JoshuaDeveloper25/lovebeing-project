@@ -17,8 +17,8 @@ const SidebarProfile = ({
   setTriggerEffect,
   setProfilePosition,
   setProfileShapeImage,
-  toggledMenuHam,
-  setToggledMenuHam
+  toggled,
+  setToggled,
 }) => {
   const [crop, setCrop] = useState();
   const [images, setImages] = useState([]);
@@ -45,10 +45,10 @@ const SidebarProfile = ({
         imageInfo
       ),
     onSuccess: (res) => {
-      console.log(res);
       toast.success("¡Image uploaded successfully!");
       queryClient.invalidateQueries(["profile"]);
       setOpenModal(false);
+      setImages([]);
     },
     onError: (err) => {
       console.log(err);
@@ -124,9 +124,9 @@ const SidebarProfile = ({
   return (
     <>
       <Sidebar
-        onBackdropClick={() => setToggledMenuHam(false)}
-        className="flex-1 bg-primary-color"
-        toggledMenuHam={toggledMenuHam}
+        onBackdropClick={() => setToggled(false)}
+        className="flex-1 text-white"
+        toggled={toggled}
         breakPoint="md"
       >
         <Menu>
@@ -138,7 +138,7 @@ const SidebarProfile = ({
 
             <div>
               <IoCloseSharp
-                onClick={() => setToggledMenuHam(false)}
+                onClick={() => setToggled(false)}
                 className="min-[768px]:hidden size-6 cursor-pointer"
               />
             </div>
@@ -183,7 +183,7 @@ const SidebarProfile = ({
             </MenuItem>
           </SubMenu>
 
-          <div className="px-3">
+          <div className="px-3 my-3">
             {/* Change Image */}
             <button onClick={() => setOpenModal(true)}>
               <FaImage className="inline me-2" /> Change Cover Image
@@ -198,7 +198,7 @@ const SidebarProfile = ({
           </div>
         </Menu>
       </Sidebar>
-      
+
       {/* Change Cover Image Modal */}
       <Modal
         titleModal={"Change Image"}
