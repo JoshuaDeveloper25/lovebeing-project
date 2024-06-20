@@ -1,16 +1,26 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import FormCreateProfile from "./components/FormCreateProfile";
 import getFastApiErrors from "../../utils/getFastApiErrors";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import Profiles from "./components/Profiles";
 import Modal from "../../components/Modal";
 import { GoPlus } from "react-icons/go";
 import { toast } from "react-toastify";
-import Form from "./components/Form";
 import { useState } from "react";
 import axios from "axios";
 
+import cloudsVideo from "../../assets/clouds.mp4";
+
 const MyProfiles = () => {
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["ownProfiles"],
+    queryFn: async () =>
+      await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/remembereds/get-own-profiles`
+      ),
+  });
 
   const createProfileMutation = useMutation({
     mutationFn: async (profileInfo) =>
@@ -20,7 +30,7 @@ const MyProfiles = () => {
       ),
     onSuccess: (res) => {
       toast.success("¡Perfil creado exitosamente!");
-      navigate(`/settings/${res?.data?.id}`);
+      queryClient.invalidateQueries({ queryKey: ["ownProfiles"] });
     },
     onError: (err) => {
       console.log(err);
@@ -41,26 +51,39 @@ const MyProfiles = () => {
     createProfileMutation?.mutate(profileInfo);
   };
 
+  if (isLoading) {
+    return "Loading...";
+  }
+
   return (
     <>
-      <section className="container-page my-3">
-        <div className="inline-block">
-          <button
-            onClick={() => setOpenModal(!openModal)}
-            className="btn btn-blue"
-          >
-            <GoPlus className="size-5 inline" /> Create Profile
-          </button>
-        </div>
+      <video className="w-full h-80 object-cover" loop autoPlay muted>
+        <source src={cloudsVideo} type="video/mp4" />
+        Your browser does not support HTML video.
+      </video>
 
-        <Modal
-          titleModal={"New Profile"}
-          handleSubmit={handleSubmit}
-          setOpenModal={setOpenModal}
-          openModal={openModal}
-        >
-          <Form isPending={createProfileMutation?.isPending} />
-        </Modal>
+      <section className="container-page my-3">
+        <article className="mb-8">
+          <div className="inline-block">
+            <button
+              onClick={() => setOpenModal(!openModal)}
+              className="btn btn-blue"
+            >
+              <GoPlus className="size-5 inline" /> Create Profile
+            </button>
+          </div>
+
+          <Modal
+            titleModal={"New Profile"}
+            handleSubmit={handleSubmit}
+            setOpenModal={setOpenModal}
+            openModal={openModal}
+          >
+            <FormCreateProfile isPending={createProfileMutation?.isPending} />
+          </Modal>
+        </article>
+
+        <Profiles profiles={data?.data} />
       </section>
     </>
   );

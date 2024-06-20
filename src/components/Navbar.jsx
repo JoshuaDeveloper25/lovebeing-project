@@ -46,7 +46,7 @@ const Navbar = () => {
                     document.body
                   )}
 
-                  <ul className="absolute right-24 shadow-lg bg-white py-2 z-[1000]  w-max rounded max-h-96 overflow-auto">
+                  <ul className="absolute right-5 shadow-lg bg-white py-2 z-[1000]  w-max rounded max-h-96 overflow-auto">
                     <NavbarDropdownLink
                       hoverBgLink={"hover:bg-primary-color"}
                       linkText={"My Profiles"}
