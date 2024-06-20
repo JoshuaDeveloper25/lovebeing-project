@@ -1,5 +1,4 @@
-import ImagesHandle from "../../../../../components/ImagesHandle";
-import { useState } from "react";
+import ImagesHandle from "../../../components/ImagesHandle";
 
 const Form = ({ isPending, setImages, images }) => {
   return (

@@ -1,14 +1,13 @@
-import AppContext from "../../../../context/AppProvider";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { useContext } from "react";
 import axios from "axios";
 
-const Home = () => {
-  const { triggerEffect, profilePosition, profileShapeImage } =
-    useContext(AppContext);
+const Preview = ({
+  triggerEffect,
+  profilePosition,
+  profileShapeImage,
+}) => {
   const params = useParams();
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile"],
     queryFn: async () =>
@@ -25,14 +24,16 @@ const Home = () => {
     return console.log(error);
   }
 
-  console.log(data?.data?.profile_images);
-
   return (
     <section className="container-page">
-      <div className="">
+      <div>
         {/* Cover */}
         <img
-          src={`${data?.data?.cover_images?.cloud_front_domain}/${data?.data?.cover_images?.aws_file_name}`}
+          src={
+            data?.data?.cover_images
+              ? `${data?.data?.cover_images?.cloud_front_domain}/${data?.data?.cover_images?.aws_file_name}`
+              : `https://images.unsplash.com/photo-1475727946784-2890c8fdb9c8?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`
+          }
           className="w-full h-96"
         />
 
@@ -52,7 +53,11 @@ const Home = () => {
             {profileShapeImage === "circle" ? (
               <div className={`content`}>
                 <img
-                  src={`${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`}
+                  src={
+                    data?.data?.profile_images
+                      ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
+                      : `https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg`
+                  }
                 />
               </div>
             ) : (
@@ -66,7 +71,11 @@ const Home = () => {
                 }}`}
               >
                 <img
-                  src={`${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`}
+                  src={
+                    data?.data?.profile_images
+                      ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
+                      : `https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg`
+                  }
                 />
               </div>
             )}
@@ -84,7 +93,11 @@ const Home = () => {
                    ? "ms-auto"
                    : ""
                }`}
-                src={`${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`}
+                src={
+                  data?.data?.profile_images
+                    ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
+                    : `https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg`
+                }
               />
             ) : (
               <img
@@ -96,7 +109,11 @@ const Home = () => {
                  ? "ms-auto"
                  : ""
              }`}
-                src={`${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`}
+                src={
+                  data?.data?.profile_images
+                    ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
+                    : `https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg`
+                }
               />
             )}
           </div>
@@ -107,12 +124,12 @@ const Home = () => {
         <h2>{data?.data?.epitaph || "In loving memory of"}</h2>
         <h3 className="font-bold mb-1">{data?.data?.name}</h3>
         <h3>
-          <span className="font-bold">Lifetime</span>: {data?.data?.birth_date}{" "}X
-          - {data?.data?.death_date}
+          <span className="font-bold">Lifetime</span>: {data?.data?.birth_date}{" "}
+          X - {data?.data?.death_date}
         </h3>
       </div>
     </section>
   );
 };
 
-export default Home;
+export default Preview;

@@ -6,8 +6,8 @@ import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { setUserInfo, userInfo } = useContext(AppContext);
   const [openDropDown, setOpenDropDown] = useState(false);
-  const { setUserInfo } = useContext(AppContext);
 
   const handleLogOut = () => {
     toast.success("¡Successfully logged out!");
@@ -48,24 +48,26 @@ const Navbar = () => {
 
                   <ul className="absolute right-24 shadow-lg bg-white py-2 z-[1000]  w-max rounded max-h-96 overflow-auto">
                     <NavbarDropdownLink
-                      hoverBgLink={"bg-primary-color"}
+                      hoverBgLink={"hover:bg-primary-color"}
                       linkText={"My Profiles"}
                       onClick={() => setOpenDropDown(false)}
                       linkTo={"/my-profiles/"}
                     />
 
                     <NavbarDropdownLink
-                      hoverBgLink={"bg-primary-color"}
+                      hoverBgLink={"hover:bg-primary-color"}
                       linkText={"Settings"}
                       onClick={() => setOpenDropDown(false)}
                       linkTo={"#"}
                     />
 
-                    <NavbarDropdownLink
-                      hoverBgLink={"bg-red-500"}
-                      linkText={"Log Out"}
-                      onClick={handleLogOut}
-                    />
+                    {userInfo?.access_token && (
+                      <NavbarDropdownLink
+                        hoverBgLink={"hover:bg-red-500"}
+                        linkText={"Log Out"}
+                        onClick={handleLogOut}
+                      />
+                    )}
                   </ul>
                 </>
               )}

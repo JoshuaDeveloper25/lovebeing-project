@@ -10,6 +10,7 @@ import { AppProvider } from "./context/AppProvider";
 // --> 🔗	Styles
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
+import "react-image-crop/dist/ReactCrop.css";
 
 // --> 📄 Pages
 import Root from "./pages/Root";
@@ -19,7 +20,6 @@ import SignIn from "./pages/SignIn/SignIn";
 import Home from "./pages/Home/Home";
 import Settings from "./pages/Settings/Settings";
 import MyProfiles from "./pages/MyProfiles/MyProfiles";
-import SettingsHome from "./pages/Settings/pages/Home/SettingsHome";
 
 import PublicRoutes from "./auth/PublicRoutes";
 import PrivateRoutes from "./auth/PrivateRoutes";
@@ -71,12 +71,6 @@ const router = createBrowserRouter([
       {
         element: <Settings />,
         path: "/settings/:id",
-        children: [
-          {
-            element: <SettingsHome />,
-            index: true,
-          },
-        ],
       },
     ],
   },

@@ -1,13 +1,13 @@
-import React from "react";
-import { IoClose } from "react-icons/io5";
+import { IoCloudUploadSharp } from "react-icons/io5";
 import { LuPencilLine } from "react-icons/lu";
+import { IoClose } from "react-icons/io5";
 import ReactImageUploading, {
   ImageListType,
   ImageType,
 } from "react-images-uploading";
-import { IoCloudUploadSharp } from "react-icons/io5";
+import React from "react";
 
-const ImagesHandle = ({ setImages, images }) => {
+const ImagesHandle = ({ setImages, images  }) => {
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     // console.log(imageList, addUpdateIndex);
@@ -48,7 +48,7 @@ const ImagesHandle = ({ setImages, images }) => {
                       className="h-36 w-36"
                     />
                   </div>
-                  
+
                   <div className="image-item__btn-wrapper absolute flex gap-2 -right-3 -top-3">
                     <button
                       className="bg-blue-500/85 hover:bg-blue-500/90 hover:text-secondary rounded-full text-white p-1"
