@@ -2,11 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const Preview = ({
-  triggerEffect,
-  profilePosition,
-  profileShapeImage,
-}) => {
+const Preview = ({ triggerEffect, profilePosition, profileShapeImage }) => {
   const params = useParams();
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile"],
@@ -29,12 +25,14 @@ const Preview = ({
       <div>
         {/* Cover */}
         <img
+          loading="lazy"
+          decoding="async"
           src={
             data?.data?.cover_images
               ? `${data?.data?.cover_images?.cloud_front_domain}/${data?.data?.cover_images?.aws_file_name}`
               : `https://images.unsplash.com/photo-1475727946784-2890c8fdb9c8?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`
           }
-          className="w-full h-96 object-cover"
+          className="w-full h-96 object-cover opacity-85 sticky -z-40"
         />
 
         {/* User Image */}
@@ -53,6 +51,8 @@ const Preview = ({
             {profileShapeImage === "circle" ? (
               <div className={`content`}>
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={
                     data?.data?.profile_images
                       ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
@@ -71,6 +71,8 @@ const Preview = ({
                 }}`}
               >
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={
                     data?.data?.profile_images
                       ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
@@ -84,6 +86,8 @@ const Preview = ({
           <div className="-mt-20 ms-5">
             {profileShapeImage === "circle" ? (
               <img
+                loading="lazy"
+                decoding="async"
                 className={`w-36 h-36 object-cover rounded-full
               
                ${
@@ -101,6 +105,8 @@ const Preview = ({
               />
             ) : (
               <img
+                loading="lazy"
+                decoding="async"
                 className={`rounded-none h-36 w-36 object-cover
              ${
                profilePosition === "center"

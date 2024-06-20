@@ -8,7 +8,7 @@ body {
 @tailwind components;
 @tailwind utilities;
 
-/* Tailwind components made by myselfI */
+/* Tailwind components made by myself */
 @layer components {
   .container-page {
     @apply max-w-[1200px] mx-auto px-2;
@@ -27,7 +27,7 @@ body {
   }
 
   .form-input-focus:focus {
-    @apply shadow-[0_0_0_.15rem_rgba(0,105,255,.4)];
+    @apply shadow-[0_0_0_.15rem_rgba(10,2,59,.8)];
   }
 
   .form-input-normal {

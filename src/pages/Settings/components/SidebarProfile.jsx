@@ -146,7 +146,12 @@ const SidebarProfile = ({
 
           {/* Logo */}
           <NavLink to={"#"}>
-            <img className="w-20 mx-auto mb-6" src={logo} />
+            <img
+              loading="lazy"
+              decoding="async"
+              className="w-20 mx-auto mb-6"
+              src={logo}
+            />
           </NavLink>
 
           <SubMenu label="Profile Effect">

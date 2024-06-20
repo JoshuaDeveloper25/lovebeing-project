@@ -7,7 +7,7 @@ import ReactImageUploading, {
 } from "react-images-uploading";
 import React from "react";
 
-const ImagesHandle = ({ setImages, images  }) => {
+const ImagesHandle = ({ setImages, images }) => {
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     // console.log(imageList, addUpdateIndex);
@@ -42,6 +42,8 @@ const ImagesHandle = ({ setImages, images  }) => {
                 <li key={idx} className="relative">
                   <div className="relative">
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={`${item?.dataURL}`}
                       alt="Image"
                       className="w-full"
