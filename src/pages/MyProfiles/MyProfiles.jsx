@@ -1,18 +1,18 @@
+import IndividualUserProfileCard from "./components/IndividualUserProfileCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import IndividualUserProfileTab from "./components/IndividualUserProfileTab";
 import FormCreateProfile from "./components/FormCreateProfile";
 import getFastApiErrors from "../../utils/getFastApiErrors";
-import { useEffect, useState } from "react";
-import Profiles from "./components/Profiles";
+import cloudsVideo from "../../assets/clouds.mp4";
 import Modal from "../../components/Modal";
 import { GoPlus } from "react-icons/go";
 import { toast } from "react-toastify";
+import { useState } from "react";
 import axios from "axios";
-
-import cloudsVideo from "../../assets/clouds.mp4";
 
 const MyProfiles = () => {
   const [openModal, setOpenModal] = useState(false);
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["ownProfiles"],
@@ -57,13 +57,16 @@ const MyProfiles = () => {
 
   return (
     <>
+      {/* Sky Video */}
       <video className="w-full h-60 object-cover" loop autoPlay muted>
         <source src={cloudsVideo} type="video/mp4" />
         Your browser does not support HTML video.
       </video>
 
+      {/* Profiles */}
       <section className="container-page my-3">
-        <article className="mb-8">
+        {/* Create Profile Button */}
+        <article className="mb-8 md:text-end text-start">
           <div className="inline-block">
             <button
               onClick={() => setOpenModal(!openModal)}
@@ -83,7 +86,15 @@ const MyProfiles = () => {
           </Modal>
         </article>
 
-        <Profiles profiles={data?.data} />
+        <div className="grid md:grid-cols-4 grid-cols-1 items-start md:gap-8">
+          {/* User Profile */}
+          <IndividualUserProfileCard />
+
+          {/* Profiles from user and Tab */}
+          <div className="col-span-3">
+            <IndividualUserProfileTab profiles={data?.data} />
+          </div>
+        </div>
       </section>
     </>
   );

@@ -4,8 +4,9 @@ import axios from "axios";
 
 const Preview = ({ triggerEffect, profilePosition, profileShapeImage }) => {
   const params = useParams();
+  
   const { data, isLoading, error } = useQuery({
-    queryKey: ["profile"],
+    queryKey: ["profile", params?.id],
     queryFn: async () =>
       await axios.get(
         `${import.meta.env.VITE_BASE_URL}/remembereds/get-profile/${params?.id}`

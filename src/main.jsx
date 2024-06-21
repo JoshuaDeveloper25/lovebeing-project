@@ -20,6 +20,7 @@ import SignIn from "./pages/SignIn/SignIn";
 import Home from "./pages/Home/Home";
 import Settings from "./pages/Settings/Settings";
 import MyProfiles from "./pages/MyProfiles/MyProfiles";
+import Remembered from "./pages/Remembered/Remembered";
 
 import PublicRoutes from "./auth/PublicRoutes";
 import PrivateRoutes from "./auth/PrivateRoutes";
@@ -71,6 +72,16 @@ const router = createBrowserRouter([
       {
         element: <Settings />,
         path: "/settings/:id",
+      },
+    ],
+  },
+
+  {
+    element: <Root />,
+    children: [
+      {
+        element: <Remembered />,
+        path: "/remembered/:id",
       },
     ],
   },
