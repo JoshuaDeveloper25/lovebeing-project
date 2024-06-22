@@ -11,6 +11,7 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     toast.success("¡Successfully logged out!");
+    localStorage.removeItem("userInfo");
     setUserInfo({});
   };
 
