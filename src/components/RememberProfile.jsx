@@ -135,7 +135,17 @@ const RememberProfile = ({
           )}
         </div>
       ) : (
-        "no existe"
+        <div className={`content`}>
+          <img
+            loading="lazy"
+            decoding="async"
+            src={
+              data?.data?.profile_images
+                ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
+                : `https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg`
+            }
+          />
+        </div>
       )}
 
       <div className="mt-3 ms-5">
