@@ -136,7 +136,7 @@ const SidebarProfile = ({
         <Menu>
           {/* Icono Flecha */}
           <div className="flex items-center justify-between px-2 py-3">
-            <NavLink className="inline-block" to={"/"}>
+            <NavLink className="inline-block" to={"/my-profiles/"}>
               <IoArrowBack className="size-6" />
             </NavLink>
 

@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { createPortal } from "react-dom";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { setUserInfo, userInfo } = useContext(AppContext);
@@ -17,13 +18,13 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-primary-color py-2">
+      <nav className="bg-black/80 text-white py-2">
         <div className="container-page px-2">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-white italic tracking-widest text-xl">
-                Logo
-              </h1>
+              <Link to={"/"}>
+                <h1 className="italic tracking-widest text-xl">Logo</h1>
+              </Link>
             </div>
 
             <div className="relative">

@@ -52,7 +52,7 @@ const MyProfiles = () => {
   };
 
   if (isLoading) {
-    return "Loading...";
+    return <h3>Loading...</h3>;
   }
 
   return (
