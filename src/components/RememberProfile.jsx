@@ -12,7 +12,7 @@ const RememberProfile = ({
 }) => {
   const params = useParams();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isPending, error } = useQuery({
     queryKey: [`${queryKey}`, params?.id],
     queryFn: async () =>
       await axios.get(
@@ -20,7 +20,7 @@ const RememberProfile = ({
       ),
   });
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="container-page">
         <div role="status" className="max-w-full animate-pulse">

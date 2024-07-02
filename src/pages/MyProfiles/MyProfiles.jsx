@@ -14,7 +14,7 @@ const MyProfiles = () => {
   const [openModal, setOpenModal] = useState(false);
   const queryClient = useQueryClient();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isPending, error } = useQuery({
     queryKey: ["ownProfiles"],
     queryFn: async () =>
       await axios.get(
@@ -31,6 +31,7 @@ const MyProfiles = () => {
     onSuccess: (res) => {
       toast.success("¡Perfil creado exitosamente!");
       queryClient.invalidateQueries({ queryKey: ["ownProfiles"] });
+      setOpenModal(false);
     },
     onError: (err) => {
       console.log(err);
@@ -90,7 +91,7 @@ const MyProfiles = () => {
           <div className="col-span-3">
             <IndividualUserProfileTab
               profiles={data?.data}
-              isLoading={isLoading}
+              isPending={isPending}
             />
           </div>
         </div>

@@ -4,7 +4,7 @@ import Profiles from "./Profiles";
 import { useState } from "react";
 import TabLink from "./TabLink";
 
-const IndividualUserProfileTab = ({ profiles, isLoading }) => {
+const IndividualUserProfileTab = ({ profiles, isPending }) => {
   const [openTab, setOpenTab] = useState(1);
 
   return (
@@ -36,7 +36,7 @@ const IndividualUserProfileTab = ({ profiles, isLoading }) => {
         <div className="px-4 py-5 flex-auto">
           <div className="tab-content tab-space">
             <TabLinkContent openTab={openTab} numberTab={1} idTab={"#profiles"}>
-              <Profiles profiles={profiles} isLoading={isLoading} />
+              <Profiles profiles={profiles} isPending={isPending} />
             </TabLinkContent>
 
             <TabLinkContent
