@@ -9,10 +9,42 @@ import {
 } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
-const Profile = ({ item }) => {
+const Profile = ({ item, isLoading }) => {
   const navigate = useNavigate();
 
-  return (
+  return isLoading ? (
+    <div class="reveal shadow-2xl rounded-md p-4 max-w-sm w-full mx-auto">
+      <div class="animate-pulse">
+        <div class="bg-primary-color/45 h-32 rounded-t-lg w-full"></div>
+
+        <div className="flex gap-3">
+          <div class="h-20 w-20 -mt-14 object-cover rounded-full ms-3 bg-white border-4 border-black/35"></div>
+          <div class="self-end h-2 w-14 bg-primary-color/45 rounded"></div>
+        </div>
+
+        <div className="flex justify-center mt-4 gap-3">
+          <div class="h-2 w-14 bg-primary-color/45 rounded"></div>
+          <div class="h-2 w-14 bg-primary-color/45 rounded"></div>
+        </div>
+
+        <div class="mt-3 h-8 w-full bg-primary-color/45 rounded"></div>
+
+        <div className="flex justify-center mt-2 gap-3">
+          <div class="h-8 w-full bg-primary-color/45 rounded"></div>
+          <div class="h-8 w-full bg-primary-color/45 rounded"></div>
+        </div>
+
+        <div class="mt-2 h-8 w-full bg-primary-color/45 rounded"></div>
+
+        <div className="flex justify-center mt-4 gap-3">
+          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className="reveal shadow-2xl">
       <img
         src={

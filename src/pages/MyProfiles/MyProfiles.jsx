@@ -51,10 +51,6 @@ const MyProfiles = () => {
     createProfileMutation?.mutate(profileInfo);
   };
 
-  if (isLoading) {
-    return <h3>Loading...</h3>;
-  }
-
   return (
     <>
       {/* Sky Video */}
@@ -92,7 +88,10 @@ const MyProfiles = () => {
 
           {/* Profiles from user and Tab */}
           <div className="col-span-3">
-            <IndividualUserProfileTab profiles={data?.data} />
+            <IndividualUserProfileTab
+              profiles={data?.data}
+              isLoading={isLoading}
+            />
           </div>
         </div>
       </section>

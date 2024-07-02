@@ -24,12 +24,12 @@ const RememberProfile = ({
     return (
       <div className="container-page">
         <div role="status" className="max-w-full animate-pulse">
-          <div className="h-[24rem] bg-primary-color dark:bg-primary-color"></div>
-          <div className="-mt-16 ms-5 sm:h-32 h-24 sm:w-32 w-24 rounded-full bg-primary-color dark:bg-primary-color mb-2.5"></div>
+          <div className="h-[24rem] bg-primary-color/50"></div>
+          <div className="bg-primary-color/50 -mt-16 ms-5 sm:h-32 h-24 sm:w-32 w-24 rounded-full mb-2.5"></div>
           <div className="mt-3 ms-5">
-            <div className="h-2 w-56 bg-primary-color dark:bg-primary-color mb-2.5"></div>
-            <div className="h-2 w-32 bg-primary-color dark:bg-primary-color mb-2.5"></div>
-            <div className="h-2 w-24 bg-primary-color dark:bg-primary-color mb-2.5"></div>
+            <div className="h-2 w-56 bg-primary-color/50 mb-2.5"></div>
+            <div className="h-2 w-32 bg-primary-color/50 mb-2.5"></div>
+            <div className="h-2 w-24 bg-primary-color/50 mb-2.5"></div>
           </div>
         </div>
       </div>
