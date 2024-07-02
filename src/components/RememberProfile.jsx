@@ -21,7 +21,19 @@ const RememberProfile = ({
   });
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="container-page">
+        <div role="status" className="max-w-full animate-pulse">
+          <div className="h-[24rem] bg-primary-color dark:bg-primary-color"></div>
+          <div className="-mt-16 ms-5 sm:h-32 h-24 sm:w-32 w-24 rounded-full bg-primary-color dark:bg-primary-color mb-2.5"></div>
+          <div className="mt-3 ms-5">
+            <div className="h-2 w-56 bg-primary-color dark:bg-primary-color mb-2.5"></div>
+            <div className="h-2 w-32 bg-primary-color dark:bg-primary-color mb-2.5"></div>
+            <div className="h-2 w-24 bg-primary-color dark:bg-primary-color mb-2.5"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -31,16 +43,29 @@ const RememberProfile = ({
   return (
     <section className="container-page">
       {/* Cover */}
-      <img
-        loading="lazy"
-        decoding="async"
-        src={
-          data?.data?.cover_images
-            ? `${data?.data?.cover_images?.cloud_front_domain}/${data?.data?.cover_images?.aws_file_name}`
-            : `https://images.unsplash.com/photo-1475727946784-2890c8fdb9c8?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`
-        }
-        className="w-full h-96 object-cover opacity-85 sticky -z-40"
-      />
+      <div>
+        <img
+          loading="lazy"
+          decoding="async"
+          src={
+            data?.data?.cover_images
+              ? `${data?.data?.cover_images?.cloud_front_domain}/${data?.data?.cover_images?.aws_file_name}`
+              : `https://images.unsplash.com/photo-1475727946784-2890c8fdb9c8?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`
+          }
+          className="md:block hidden h-[24rem] w-full opacity-85 object-cover sticky -z-40"
+        />
+
+        <img
+          loading="lazy"
+          decoding="async"
+          src={
+            data?.data?.cover_images
+              ? `${data?.data?.cover_images?.cloud_front_domain}/${data?.data?.cover_images?.aws_file_name}`
+              : `https://images.unsplash.com/photo-1475727946784-2890c8fdb9c8?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`
+          }
+          className="md:hidden max-h-[24rem] w-full opacity-85 object-cover sticky -z-40"
+        />
+      </div>
 
       {enableEffects ? (
         <div>
@@ -135,8 +160,9 @@ const RememberProfile = ({
           )}
         </div>
       ) : (
-        <div className={`content`}>
+        <div className={`-mt-16 ms-5`}>
           <img
+            className="sm:h-32 h-24 sm:w-32 w-24 rounded-full"
             loading="lazy"
             decoding="async"
             src={

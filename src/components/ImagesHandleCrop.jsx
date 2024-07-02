@@ -6,18 +6,20 @@ import ReactCrop, {
 } from "react-image-crop";
 import { useState } from "react";
 
-const MIN_DIMENSION = 150;
-const ASPECT_RATIO = 1;
-
 const ImagesHandleCrop = ({
   imgRef,
   isPending,
   previewCanvasRef,
   setCrop,
   crop,
+  circle,
 }) => {
+  
   const [imgSrc, setImgSrc] = useState();
   const [error, setError] = useState("");
+
+  const MIN_DIMENSION = circle ? 200 : 250;
+  const ASPECT_RATIO = circle ? 1 : 10 / 3.5;
 
   const onSelectFile = (e) => {
     const file = e.target.files?.[0];
@@ -55,6 +57,7 @@ const ImagesHandleCrop = ({
       width,
       height
     );
+
     const centeredCrop = centerCrop(crop, width, height);
     setCrop(centeredCrop);
   };
@@ -78,11 +81,11 @@ const ImagesHandleCrop = ({
         <div className="flex flex-col items-center">
           <ReactCrop
             onChange={(pixelCrop, percentCrop) => setCrop(percentCrop)}
-            crop={crop}
-            circularCrop
-            keepSelection
+            circularCrop={circle ? true : false}
             aspect={ASPECT_RATIO}
             minWidth={MIN_DIMENSION}
+            keepSelection
+            crop={crop}
           >
             <img
               loading="lazy"
@@ -121,3 +124,6 @@ const ImagesHandleCrop = ({
 };
 
 export default ImagesHandleCrop;
+
+
+// w384 x h256

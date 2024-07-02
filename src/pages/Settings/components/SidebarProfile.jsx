@@ -10,8 +10,8 @@ import { useRef, useState } from "react";
 import { FaImage } from "react-icons/fa";
 import FormProfile from "./FormProfile";
 import { toast } from "react-toastify";
+import FormCover from "./FormCover";
 import axios from "axios";
-import Form from "./Form";
 
 const SidebarProfile = ({
   setTriggerEffect,
@@ -20,8 +20,6 @@ const SidebarProfile = ({
   toggled,
   setToggled,
 }) => {
-  const [crop, setCrop] = useState();
-  const [images, setImages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [openModalProfile, setOpenModalProfile] = useState(false);
   const queryClient = useQueryClient();
@@ -30,13 +28,14 @@ const SidebarProfile = ({
   );
   const params = useParams();
   const previewCanvasRef = useRef(null);
+  const [crop, setCrop] = useState();
   const imgRef = useRef(null);
 
   const updateAvatar = (imgSrc) => {
     avatarUrl.current = imgSrc;
   };
 
-  const changeImageMutation = useMutation({
+  const changeImageCoverMutation = useMutation({
     mutationFn: async (imageInfo) =>
       await axios.post(
         `${import.meta.env.VITE_BASE_URL}/remembereds/upload_cover_image/${
@@ -48,7 +47,6 @@ const SidebarProfile = ({
       toast.success("¡Image uploaded successfully!");
       queryClient.invalidateQueries(["profile"]);
       setOpenModal(false);
-      setImages([]);
     },
     onError: (err) => {
       console.log(err);
@@ -75,13 +73,8 @@ const SidebarProfile = ({
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmitCoverImage = async (e) => {
     e.preventDefault();
-
-    if (!images.length) {
-      toast.error("No image selected");
-      return;
-    }
 
     const user_request = confirm(`Are you sure you want to change the image?`);
 
@@ -89,13 +82,24 @@ const SidebarProfile = ({
       return;
     }
 
-    const formData = new FormData();
-    formData.append("file", images[0].file);
+    setCanvasPreview(
+      imgRef.current, // HTMLImageElement
+      previewCanvasRef.current, // HTMLCanvasElement
+      convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height)
+    );
 
-    changeImageMutation?.mutate(formData);
+    const dataUrl = previewCanvasRef.current.toDataURL();
+    updateAvatar(dataUrl);
+
+    const blob = await fetch(dataUrl).then((res) => res.blob());
+    const file = new File([blob], "cover-image.png", { type: "image/png" });
+
+    const formData = new FormData();
+    formData.append("file", file);
+    changeImageCoverMutation?.mutate(formData);
   };
 
-  const handleSubmitProfile = async (e) => {
+  const handleSubmitProfileImage = async (e) => {
     e.preventDefault();
 
     const user_request = confirm(`Are you sure you want to change the image?`);
@@ -206,22 +210,24 @@ const SidebarProfile = ({
 
       {/* Change Cover Image Modal */}
       <Modal
-        titleModal={"Change Image"}
-        handleSubmit={handleSubmit}
+        titleModal={"Change Cover Image"}
+        handleSubmit={handleSubmitCoverImage}
         setOpenModal={setOpenModal}
         openModal={openModal}
       >
-        <Form
-          isPending={changeImageMutation?.isPending}
-          setImages={setImages}
-          images={images}
+        <FormCover
+          isPending={changeImageCoverMutation?.isPending}
+          previewCanvasRef={previewCanvasRef}
+          setCrop={setCrop}
+          imgRef={imgRef}
+          crop={crop}
         />
       </Modal>
 
       {/* Change Profile Image Modal */}
       <Modal
         titleModal={"Change Profile Image"}
-        handleSubmit={handleSubmitProfile}
+        handleSubmit={handleSubmitProfileImage}
         setOpenModal={setOpenModalProfile}
         openModal={openModalProfile}
       >
@@ -229,8 +235,8 @@ const SidebarProfile = ({
           isPending={changeImageProfileMutation?.isPending}
           setOpenModalProfile={setOpenModalProfile}
           previewCanvasRef={previewCanvasRef}
-          imgRef={imgRef}
           setCrop={setCrop}
+          imgRef={imgRef}
           crop={crop}
         />
       </Modal>

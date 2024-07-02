@@ -4,8 +4,8 @@ import ReactDOM from "react-dom/client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { AppProvider } from "./context/AppProvider";
+import { ToastContainer } from "react-toastify";
 
 // --> 🔗	Styles
 import "./styles/index.css";
@@ -92,7 +92,15 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AppProvider>
     <QueryClientProvider client={queryClient}>
-      <ToastContainer position="top-center" stacked />
+      <ToastContainer
+        pauseOnFocusLoss={false}
+        hideProgressBar={true}
+        position="top-center"
+        autoClose={1000}
+        theme="colored"
+        draggable
+        stacked
+      />
       <RouterProvider router={router} />
     </QueryClientProvider>
   </AppProvider>

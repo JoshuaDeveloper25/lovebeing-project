@@ -41,13 +41,13 @@ const ImagesHandle = ({ setImages, images }) => {
               {images?.map((item, idx) => (
                 <li key={idx} className="relative">
                   <div className="relative">
-                    <img
-                      loading="lazy"
-                      decoding="async"
-                      src={`${item?.dataURL}`}
-                      alt="Image"
-                      className="w-full"
-                    />
+                        <img
+                          loading="lazy"
+                          decoding="async"
+                          src={`${item?.dataURL}`}
+                          alt="Image"
+                          className="w-full"
+                        />
                   </div>
 
                   <div className="image-item__btn-wrapper absolute flex gap-2 -right-3 -top-3">

@@ -1,12 +1,6 @@
 import ImagesHandleCrop from "../../../components/ImagesHandleCrop";
 
-const FormProfile = ({
-  imgRef,
-  isPending,
-  previewCanvasRef,
-  setCrop,
-  crop,
-}) => {
+const FormCover = ({ previewCanvasRef, setCrop, crop, imgRef, isPending }) => {
   return (
     <ImagesHandleCrop
       imgRef={imgRef}
@@ -14,9 +8,9 @@ const FormProfile = ({
       previewCanvasRef={previewCanvasRef}
       setCrop={setCrop}
       crop={crop}
-      circle={true}
+      circle={false}
     />
   );
 };
 
-export default FormProfile;
+export default FormCover;

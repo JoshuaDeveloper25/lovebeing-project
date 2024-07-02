@@ -30,7 +30,7 @@ const Profile = ({ item }) => {
             src={
               item?.profile_images?.cloud_front_domain
                 ? `${item?.profile_images?.cloud_front_domain}/${item?.profile_images?.aws_file_name}`
-                : "https://images.unsplash.com/photo-1475727946784-2890c8fdb9c8?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                : "https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg"
             }
             className="h-24 w-24 -mt-20 object-cover rounded-full border-4 border-black/60"
             decoding="async"

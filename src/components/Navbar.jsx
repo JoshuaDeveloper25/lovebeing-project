@@ -26,7 +26,7 @@ const Navbar = () => {
               </h1>
             </div>
 
-            <div>
+            <div className="relative">
               <button
                 id="dropdownDividerButton"
                 data-dropdown-toggle="dropdownDivider"
@@ -47,29 +47,29 @@ const Navbar = () => {
                     document.body
                   )}
 
-                  <ul className="absolute right-5 shadow-lg bg-white py-2 z-[1000]  w-max rounded max-h-96 overflow-auto">
-                    <NavbarDropdownLink
-                      hoverBgLink={"hover:bg-primary-color"}
-                      linkText={"My Profiles"}
-                      onClick={() => setOpenDropDown(false)}
-                      linkTo={"/my-profiles/"}
-                    />
+                  {userInfo?.access_token && (
+                    <ul className="absolute right-5 shadow-lg bg-white py-2 z-[1000] w-max rounded max-h-96 overflow-auto">
+                      <NavbarDropdownLink
+                        hoverBgLink={"hover:bg-primary-color"}
+                        linkText={"My Profiles"}
+                        onClick={() => setOpenDropDown(false)}
+                        linkTo={"/my-profiles/"}
+                      />
 
-                    <NavbarDropdownLink
-                      hoverBgLink={"hover:bg-primary-color"}
-                      linkText={"Settings"}
-                      onClick={() => setOpenDropDown(false)}
-                      linkTo={"#"}
-                    />
+                      <NavbarDropdownLink
+                        hoverBgLink={"hover:bg-primary-color"}
+                        linkText={"Settings"}
+                        onClick={() => setOpenDropDown(false)}
+                        linkTo={"#"}
+                      />
 
-                    {userInfo?.access_token && (
                       <NavbarDropdownLink
                         hoverBgLink={"hover:bg-red-500"}
                         linkText={"Log Out"}
                         onClick={handleLogOut}
                       />
-                    )}
-                  </ul>
+                    </ul>
+                  )}
                 </>
               )}
             </div>

@@ -4,6 +4,7 @@ const setCanvasPreview = (
   crop // PixelCrop
 ) => {
   const ctx = canvas.getContext("2d");
+  
   if (!ctx) {
     throw new Error("No 2d context");
   }
