@@ -134,7 +134,7 @@ const Settings = () => {
         toggled={toggled}
       /> */}
 
-      <main className="flex-[75%] min-[1200px]:pt-5 pt-0 overflow-x-hidden">
+      <main className="flex-[75%] min-[1200px]:pt-5 pt-0 ">
         <div className="md:block flex flex-col md:flex-row">
           {/* General Information */}
           <RememberProfile

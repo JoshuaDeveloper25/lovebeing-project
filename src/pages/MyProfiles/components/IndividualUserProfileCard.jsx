@@ -4,8 +4,7 @@ import { useContext } from "react";
 
 const IndividualUserProfileCard = () => {
   const { userInfo } = useContext(AppContext);
-  console.log(userInfo)
-
+  
   return (
     <article className="md:sticky static top-0 col-span-1 min-w-52 text-center border md:mb-0 mb-8 bg-white shadow-2xl rounded-xl md:-mt-36 py-5 px-4">
       <img

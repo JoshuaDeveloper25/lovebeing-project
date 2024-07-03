@@ -1,4 +1,9 @@
-import { FaCameraRetro } from "react-icons/fa";
+import {
+  FaCameraRetro,
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+} from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -50,7 +55,7 @@ const RememberProfile = ({
   return (
     <section className="container-page">
       <article className="bg-white rounded-lg">
-        {/* Cover */}
+        {/* Cover Image */}
         <div className="relative">
           <img
             loading="lazy"
@@ -75,7 +80,8 @@ const RememberProfile = ({
         </div>
 
         {/* User Image */}
-        <div className="flex sm:flex-col lg:flex-row items-start lg:items-start sm:items-center text-start lg:text-start sm:text-center gap-5 lg:px-10 px-5">
+        {/* Responsive - from 768px to bottom */}
+        <div className="md:hidden flex sm:flex-col lg:flex-row items-start lg:items-start sm:items-center text-start lg:text-start sm:text-center gap-5 lg:px-10 px-5">
           {/* {triggerEffect === 1 ? (
                 <div
                   className={`${
@@ -196,6 +202,135 @@ const RememberProfile = ({
               {data?.data?.birth_date} X - {data?.data?.death_date}
             </h3>
           </div>
+        </div>
+        
+        {/* Desktop - from 768px to up */}
+        <div className="grid md:grid-cols-4 grid-cols-1 items-start md:gap-8">
+          <article className="col-span-1 sticky top-0 min-w-52 text-center border md:mb-0 mb-8 bg-white shadow-2xl rounded-xl md:-mt-12 py-5 px-4 md:block hidden">
+            <div className="relative">
+              <img
+                className="w-36 h-36 object-cover mx-auto rounded-full shadow-lg"
+                src={
+                  data?.data?.profile_images
+                    ? `${data?.data?.profile_images?.cloud_front_domain}/${data?.data?.profile_images?.aws_file_name}`
+                    : `https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg`
+                }
+              />
+              <div className="absolute bottom-3 right-14 z-[100]">
+                <button
+                  onClick={() => setOpenModalProfile(true)}
+                  className="p-1.5 rounded text-white bg-black/50"
+                  type="button"
+                >
+                  <FaCameraRetro className="inline-block size-5" />
+                </button>
+              </div>
+            </div>
+            <h3 className="font-bold text-sm text-gray-500 mt-3 capitalize">
+              {data?.data?.epitaph || "In loving memory of"}
+            </h3>
+            <h3 className="font-bold capitalize text-xl">{data?.data?.name}</h3>
+            <p className="text-gray-600 mt-2 text-xs leading-4">
+              <span className="block font-bold mb-1 text-sm"> Lifetime:</span>{" "}
+              {data?.data?.birth_date} X - {data?.data?.death_date}
+            </p>
+
+            <div className="flex justify-center gap-5 my-6">
+              <FaFacebookF
+                size={18}
+                className="hover:text-[#00A2B3] animation-fade cursor-pointer"
+              />
+              <FaInstagram
+                size={18}
+                className="hover:text-[#00A2B3] animation-fade cursor-pointer"
+              />
+              <FaTwitter
+                size={18}
+                className="hover:text-[#00A2B3] animation-fade cursor-pointer"
+              />
+            </div>
+            <p className="text-gray-600 text-xs font-bold mt-2 leading-4">
+              Member since Nov 15, 2021
+            </p>
+          </article>
+
+          <article className="col-span-3 my-8">
+            <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+              <div className="grid gap-4">
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
+                    alt=""
+                  />
+                </div>
+
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
+                    alt=""
+                  />
+                </div>
+
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <img
+                    className="h-auto max-w-full rounded-lg"
+                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
       </article>
     </section>
