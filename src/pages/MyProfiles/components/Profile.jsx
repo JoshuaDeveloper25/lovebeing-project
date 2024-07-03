@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { FaTrashCan } from "react-icons/fa6";
 import {
   FaPencilAlt,
   FaFacebookF,
@@ -11,6 +12,7 @@ import {
   FaEye,
   FaTrash,
 } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Profile = ({ item, isPending }) => {
   const queryClient = useQueryClient();
@@ -24,7 +26,7 @@ const Profile = ({ item, isPending }) => {
         }/remembereds/delete-remembered-profile/${item?.id}`
       ),
     onSuccess: (res) => {
-      toast.success("¡Perfil eliminado exitosamente!");
+      toast.success("¡Successfully profile deleted!");
       queryClient.invalidateQueries({ queryKey: ["ownProfiles"] });
     },
     onError: (err) => {
@@ -34,49 +36,70 @@ const Profile = ({ item, isPending }) => {
   });
 
   const handleDelete = () => {
-    const user_request = confirm(
-      `Are you sure you want to delete this profile?`
-    );
-
-    if (!user_request) return;
-
-    deleteProfileMutation.mutate();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProfileMutation.mutate(null, {
+          onSuccess: () => {
+            // Swal.fire({
+            //   title: "Deleted!",
+            //   text: "Your profile has been deleted.",
+            //   icon: "success",
+            // });
+          },
+          onError: () => {
+            Swal.fire({
+              title: "Error!",
+              text: "There was an issue deleting your profile.",
+              icon: "error",
+            });
+          },
+        });
+      }
+    });
   };
 
   return isPending ? (
-    <div class="reveal shadow-2xl rounded-md p-4 max-w-sm w-full mx-auto">
-      <div class="animate-pulse">
-        <div class="bg-primary-color/45 h-32 rounded-t-lg w-full"></div>
+    <div className="reveal shadow-2xl rounded-md p-4 max-w-sm w-full mx-auto">
+      <div className="animate-pulse">
+        <div className="bg-primary-color/45 h-32 rounded-t-lg w-full"></div>
 
         <div className="flex gap-3">
-          <div class="h-20 w-20 -mt-14 object-cover rounded-full ms-3 bg-white border-4 border-black/35"></div>
-          <div class="self-end h-2 w-14 bg-primary-color/45 rounded"></div>
+          <div className="h-20 w-20 -mt-14 object-cover rounded-full ms-3 bg-white border-4 border-black/35"></div>
+          <div className="self-end h-2 w-14 bg-primary-color/45 rounded"></div>
         </div>
 
         <div className="flex justify-center mt-4 gap-3">
-          <div class="h-2 w-14 bg-primary-color/45 rounded"></div>
-          <div class="h-2 w-14 bg-primary-color/45 rounded"></div>
+          <div className="h-2 w-14 bg-primary-color/45 rounded"></div>
+          <div className="h-2 w-14 bg-primary-color/45 rounded"></div>
         </div>
 
-        <div class="mt-3 h-8 w-full bg-primary-color/45 rounded"></div>
+        <div className="mt-3 h-8 w-full bg-primary-color/45 rounded"></div>
 
         <div className="flex justify-center mt-2 gap-3">
-          <div class="h-8 w-full bg-primary-color/45 rounded"></div>
-          <div class="h-8 w-full bg-primary-color/45 rounded"></div>
+          <div className="h-8 w-full bg-primary-color/45 rounded"></div>
+          <div className="h-8 w-full bg-primary-color/45 rounded"></div>
         </div>
 
-        <div class="mt-2 h-8 w-full bg-primary-color/45 rounded"></div>
+        <div className="mt-2 h-8 w-full bg-primary-color/45 rounded"></div>
 
         <div className="flex justify-center mt-4 gap-3">
-          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
-          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
-          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
-          <div class="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+          <div className="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+          <div className="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+          <div className="h-6 w-6 bg-primary-color/45 rounded-full"></div>
+          <div className="h-6 w-6 bg-primary-color/45 rounded-full"></div>
         </div>
       </div>
     </div>
   ) : (
-    <div className="reveal shadow-2xl">
+    <div className="relative reveal shadow-2xl">
       <img
         src={
           item?.cover_images?.cloud_front_domain
@@ -105,7 +128,7 @@ const Profile = ({ item, isPending }) => {
         </div>
 
         <div className="mt-4">
-          <h4 className="text-gray-700 text-sm text-center">
+          <h4 className="text-gray-700 font-medium text-xs text-center">
             {item?.birth_date} - {item?.death_date}
           </h4>
           <p className="text-sm mt-3">{item?.epitaph}</p>
@@ -113,47 +136,46 @@ const Profile = ({ item, isPending }) => {
 
         <div className="my-4">
           {/* Buttons */}
-          <div className="flex gap-3">
-            <Link className="flex-1" to={`/remembered/${item?.id}`}>
-              <button
-                disabled={deleteProfileMutation?.isPending}
-                className={`btn bg-[#00A2B3] text-white hover:bg-[#00A2B3]/80 animation-fade rounded-sm text-sm ${
-                  deleteProfileMutation?.isPending &&
-                  "pointer-events-none opacity-75 cursor-wait"
-                }`}
-              >
-                <FaEye className="inline-block me-1" />
-                View
-              </button>
-            </Link>
+          {deleteProfileMutation?.isPending ? null : (
+            <div className="flex gap-3">
+              <Link className="flex-1" to={`/remembered/${item?.id}`}>
+                <button
+                  disabled={deleteProfileMutation?.isPending}
+                  className={`btn bg-[#00A2B3] text-white hover:bg-[#00A2B3]/80 animation-fade rounded-sm text-sm ${
+                    deleteProfileMutation?.isPending &&
+                    "pointer-events-none opacity-75 cursor-wait"
+                  }`}
+                >
+                  <FaEye className="inline-block me-1" />
+                  View
+                </button>
+              </Link>
 
-            <Link className="flex-1" to={`/settings/${item?.id}`}>
-              <button
-                disabled={deleteProfileMutation?.isPending}
-                className={`btn text-[#00A2B3] animation-fade  hover:bg-[#00A2B3] hover:text-white border border-[#00A2B3] rounded-sm text-sm ${
-                  deleteProfileMutation?.isPending &&
-                  "pointer-events-none opacity-75 cursor-wait"
-                }`}
-              >
-                <FaPencilAlt className="inline-block me-1" /> Edit
-              </button>
-            </Link>
-          </div>
+              <Link className="flex-1" to={`/settings/${item?.id}`}>
+                <button
+                  disabled={deleteProfileMutation?.isPending}
+                  className={`btn text-[#00A2B3] animation-fade  hover:bg-[#00A2B3] hover:text-white border border-[#00A2B3] rounded-sm text-sm ${
+                    deleteProfileMutation?.isPending &&
+                    "pointer-events-none opacity-75 cursor-wait"
+                  }`}
+                >
+                  <FaPencilAlt className="inline-block me-1" /> Edit
+                </button>
+              </Link>
+            </div>
+          )}
 
-          <div className="mt-2">
+          <div className="absolute top-0 right-0">
             <button
               disabled={deleteProfileMutation?.isPending}
               onClick={handleDelete}
-              className="btn bg-red-500 text-white hover:bg-red-500/80 animation-fade rounded-sm text-sm"
+              className="rounded-tr-lg text-red-500 hover:bg-red-500/50 animation-fade rounded-sm text-sm"
             >
               {deleteProfileMutation?.isPending ? (
-                <div
-                  className="flex items-center justify-center gap-3"
-                  role="status"
-                >
+                <div className="rounded-tr-lg bg-red-500/20 p-3" role="status">
                   <svg
                     aria-hidden="true"
-                    class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-white"
+                    className="w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-red-500"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -167,11 +189,10 @@ const Profile = ({ item, isPending }) => {
                       fill="currentFill"
                     />
                   </svg>
-                  Deleting...
                 </div>
               ) : (
-                <p>
-                  <FaTrash className="inline-block me-1" /> Delete
+                <p className="rounded-tr-lg bg-red-500/20 p-3">
+                  <FaTrashCan className="size-4 inline-block " />
                 </p>
               )}
             </button>

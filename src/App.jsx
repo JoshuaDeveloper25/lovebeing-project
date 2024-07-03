@@ -66,12 +66,12 @@ const router = createBrowserRouter([
             element: <MyProfiles />,
             path: "/my-profiles/",
           },
-        ],
-      },
 
-      {
-        element: <Settings />,
-        path: "/settings/:id",
+          {
+            element: <Settings />,
+            path: "/settings/:id",
+          },
+        ],
       },
     ],
   },

@@ -24,7 +24,6 @@ const ViewAnimationScroll = () => {
       window.removeEventListener("scroll", handleScrollReveal);
     };
   }, []);
-  return <div>ViewAnimationScroll</div>;
 };
 
 export default ViewAnimationScroll;

@@ -29,7 +29,7 @@ const MyProfiles = () => {
         profileInfo
       ),
     onSuccess: (res) => {
-      toast.success("¡Perfil creado exitosamente!");
+      toast.success("Successfully profile created!");
       queryClient.invalidateQueries({ queryKey: ["ownProfiles"] });
       setOpenModal(false);
     },

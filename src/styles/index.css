@@ -2,6 +2,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  background: rgb(233, 229, 223)
 }
 
 @tailwind base;
@@ -11,7 +12,7 @@ body {
 /* Tailwind components made by myself */
 @layer components {
   .container-page {
-    @apply max-w-[1200px] mx-auto px-2;
+    @apply max-w-[1200px] mx-auto;
   }
 
   .animation-fade {
