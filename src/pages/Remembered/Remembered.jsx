@@ -6,7 +6,6 @@ const Remembered = () => {
       <RememberProfile
         apiUrl={"get-remembered-profile"}
         queryKey={"individualProfile"}
-        enableEffects={false}
       />
     </div>
   );

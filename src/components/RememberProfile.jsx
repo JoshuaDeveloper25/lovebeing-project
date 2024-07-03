@@ -1,24 +1,12 @@
-import {
-  FaCameraRetro,
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import UploadProfileImage from "../helpers/UploadProfileImage";
+import UploadCoverImage from "../helpers/UploadCoverImage";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-const RememberProfile = ({
-  // triggerEffect,
-  // profilePosition,
-  // profileShapeImage,
-  // enableEffects,
-  setOpenModalProfile,
-  setOpenModal,
-  queryKey,
-  apiUrl,
-}) => {
+const RememberProfile = ({ queryKey, apiUrl }) => {
   const [triggerEffect, setTriggerEffect] = useState(false);
   const [profilePosition, setProfilePosition] = useState("left");
   const [profileShapeImage, setProfileShapeImage] = useState("circle");
@@ -54,7 +42,7 @@ const RememberProfile = ({
 
   return (
     <section className="container-page">
-      <article className="bg-white rounded-lg">
+      <article className=" rounded-lg">
         {/* Cover Image */}
         <div className="relative">
           <img
@@ -67,15 +55,9 @@ const RememberProfile = ({
             }
             className="max-h-[36rem] w-full shadow-2xl min-[1200px]:rounded-t-lg rounded-t-none object-cover z-10"
           />
+
           <div className="absolute bottom-3 right-3 z-[100]">
-            <button
-              onClick={() => setOpenModal(true)}
-              className="btn text-white bg-black/50"
-              type="button"
-            >
-              <FaCameraRetro className="inline-block lg:me-2 size-5" />
-              <span className="lg:inline-block hidden">Edit Cover Photo</span>
-            </button>
+            <UploadCoverImage />
           </div>
         </div>
 
@@ -182,13 +164,7 @@ const RememberProfile = ({
               }
             />
             <div className="absolute bottom-3 right-3 z-[100]">
-              <button
-                onClick={() => setOpenModalProfile(true)}
-                className="p-1.5 rounded text-white bg-black/50"
-                type="button"
-              >
-                <FaCameraRetro className="inline-block size-5" />
-              </button>
+              <UploadProfileImage />
             </div>
           </div>
 
@@ -203,7 +179,7 @@ const RememberProfile = ({
             </h3>
           </div>
         </div>
-        
+
         {/* Desktop - from 768px to up */}
         <div className="grid md:grid-cols-4 grid-cols-1 items-start md:gap-8">
           <article className="col-span-1 sticky top-0 min-w-52 text-center border md:mb-0 mb-8 bg-white shadow-2xl rounded-xl md:-mt-12 py-5 px-4 md:block hidden">
@@ -217,13 +193,7 @@ const RememberProfile = ({
                 }
               />
               <div className="absolute bottom-3 right-14 z-[100]">
-                <button
-                  onClick={() => setOpenModalProfile(true)}
-                  className="p-1.5 rounded text-white bg-black/50"
-                  type="button"
-                >
-                  <FaCameraRetro className="inline-block size-5" />
-                </button>
+                <UploadProfileImage />
               </div>
             </div>
             <h3 className="font-bold text-sm text-gray-500 mt-3 capitalize">

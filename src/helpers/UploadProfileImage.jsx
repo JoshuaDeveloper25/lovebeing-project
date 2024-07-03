@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import FormCover from "../pages/Settings/components/FormCover";
+import FormProfile from "../pages/Settings/components/FormProfile";
 import getFastApiErrors from "../utils/getFastApiErrors";
 import setCanvasPreview from "../utils/setCanvasPreview";
 import { convertToPixelCrop } from "react-image-crop";
@@ -10,8 +10,8 @@ import Modal from "../components/Modal";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const UploadCoverImage = () => {
-  const [openModalCover, setOpenModalCover] = useState(false);
+const UploadProfileImage = () => {
+  const [openModalProfile, setOpenModalProfile] = useState(false);
   const previewCanvasRef = useRef(null);
   const queryClient = useQueryClient();
   const [crop, setCrop] = useState();
@@ -25,10 +25,10 @@ const UploadCoverImage = () => {
     avatarUrl.current = imgSrc;
   };
 
-  const changeImageCoverMutation = useMutation({
+  const changeImageProfileMutation = useMutation({
     mutationFn: async (imageInfo) =>
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/remembereds/upload_cover_image/${
+        `${import.meta.env.VITE_BASE_URL}/remembereds/upload_profile_image/${
           params?.id
         }`,
         imageInfo
@@ -36,7 +36,7 @@ const UploadCoverImage = () => {
     onSuccess: (res) => {
       toast.success("¡Image uploaded successfully!");
       queryClient.invalidateQueries(["profile"]);
-      setOpenModalCover(false);
+      setOpenModalProfile(false);
     },
     onError: (err) => {
       console.log(err);
@@ -44,7 +44,7 @@ const UploadCoverImage = () => {
     },
   });
 
-  const handleSubmitCoverImage = async (e) => {
+  const handleSubmitProfileImage = async (e) => {
     e.preventDefault();
 
     const user_request = confirm(`Are you sure you want to change the image?`);
@@ -63,34 +63,34 @@ const UploadCoverImage = () => {
     updateAvatar(dataUrl);
 
     const blob = await fetch(dataUrl).then((res) => res.blob());
-    const file = new File([blob], "cover-image.png", { type: "image/png" });
+    const file = new File([blob], "profile-image.png", { type: "image/png" });
 
     const formData = new FormData();
     formData.append("file", file);
-    changeImageCoverMutation?.mutate(formData);
+    changeImageProfileMutation?.mutate(formData);
   };
 
   return (
     <>
-      {/* Button to Open Profile Modal */}
+      {/* Button to Open Cover Modal */}
       <button
-        onClick={() => setOpenModalCover(true)}
-        className="btn text-white bg-black/50"
+        onClick={() => setOpenModalProfile(true)}
+        className="p-1.5 rounded text-white bg-black/50"
         type="button"
       >
-        <FaCameraRetro className="inline-block lg:me-2 size-5" />
-        <span className="lg:inline-block hidden">Edit Cover Photo</span>
+        <FaCameraRetro className="inline-block size-5" />
       </button>
 
       {/* Change Cover Image Modal */}
       <Modal
-        titleModal={"Change Cover Image"}
-        handleSubmit={handleSubmitCoverImage}
-        setOpenModal={setOpenModalCover}
-        openModal={openModalCover}
+        titleModal={"Change Profile Image"}
+        handleSubmit={handleSubmitProfileImage}
+        setOpenModal={setOpenModalProfile}
+        openModal={openModalProfile}
       >
-        <FormCover
-          isPending={changeImageCoverMutation?.isPending}
+        <FormProfile
+          isPending={changeImageProfileMutation?.isPending}
+          setOpenModalProfile={setOpenModalProfile}
           previewCanvasRef={previewCanvasRef}
           setCrop={setCrop}
           imgRef={imgRef}
@@ -101,4 +101,4 @@ const UploadCoverImage = () => {
   );
 };
 
-export default UploadCoverImage;
+export default UploadProfileImage;
