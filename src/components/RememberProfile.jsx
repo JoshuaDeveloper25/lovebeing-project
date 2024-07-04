@@ -1,11 +1,12 @@
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import UploadProfileImage from "../helpers/UploadProfileImage";
 import UploadCoverImage from "../helpers/UploadCoverImage";
+import { getLivedDays } from "../utils/getLivedDays";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import Carousel from "./Carousel";
 import { useState } from "react";
 import axios from "axios";
-import Carousel from "./Carousel";
 
 const RememberProfile = ({ queryKey, apiUrl }) => {
   const [triggerEffect, setTriggerEffect] = useState(false);
@@ -65,7 +66,7 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
             className="max-h-[36rem] w-full shadow-2xl min-[1200px]:rounded-t-lg rounded-t-none object-cover z-10"
           />
 
-          <div className="absolute bottom-3 right-3 z-[100]">
+          <div className="absolute bottom-3 right-3 z-[100] cursor-pointer">
             <UploadCoverImage />
           </div>
         </div>
@@ -173,7 +174,7 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
                   : `https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg`
               }
             />
-            <div className="absolute bottom-3 right-3 z-[100]">
+            <div className="absolute bottom-3 right-3 z-[100] cursor-pointer">
               <UploadProfileImage />
             </div>
           </div>
@@ -185,7 +186,11 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
             <h3 className="text-2xl font-bold mb-1">{data?.data?.name}</h3>
             <h3 className="text-gray-500">
               <span className="font-bold">Lifetime</span>:{" "}
-              {data?.data?.birth_date} X - {data?.data?.death_date}
+              {data?.data?.birth_date} <span className="font-bold">X</span>{" "}
+              {data?.data?.death_date}
+              <span className="block">
+                {getLivedDays(data?.data?.birth_date, data?.data?.death_date)}{" "}
+              </span>
             </h3>
           </div>
         </div>
@@ -213,7 +218,10 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
             <p className="text-gray-600 mt-2 text-xs leading-4">
               <span className="block font-bold mb-1 text-sm"> Lifetime:</span>{" "}
               {data?.data?.birth_date} <span className="font-bold mx-1">X</span>{" "}
-              {data?.data?.death_date}
+              {data?.data?.death_date}{" "}
+              <span className="block">
+                {getLivedDays(data?.data?.birth_date, data?.data?.death_date)}{" "}
+              </span>
             </p>
 
             <div className="flex justify-center gap-5 my-6">

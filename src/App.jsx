@@ -98,7 +98,7 @@ const App = () => {
             pauseOnFocusLoss={false}
             hideProgressBar={true}
             position="top-center"
-            autoClose={1000}
+            autoClose={1500}
             theme="colored"
             draggable
             stacked

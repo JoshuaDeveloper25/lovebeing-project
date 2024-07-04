@@ -49,6 +49,10 @@ const MyProfiles = () => {
       epitaph: e?.target?.epitaph?.value?.trim(),
     };
 
+    if (profileInfo?.birth_date > profileInfo?.death_date) {
+      return toast.error(`Birth can't be higher than death date!`);
+    }
+
     createProfileMutation?.mutate(profileInfo);
   };
 

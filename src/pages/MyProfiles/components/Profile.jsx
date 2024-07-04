@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getLivedDays } from "../../../utils/getLivedDays";
 import { Link, useNavigate } from "react-router-dom";
+import { FaTrashCan } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { FaTrashCan } from "react-icons/fa6";
 import {
   FaPencilAlt,
   FaFacebookF,
@@ -130,6 +131,9 @@ const Profile = ({ item, isPending }) => {
         <div className="mt-4 text-center">
           <h4 className="text-gray-700 font-medium text-xs">
             {item?.birth_date} - {item?.death_date}
+            <span className="block text-[.7rem] font-bold">
+              {getLivedDays(item?.birth_date, item?.death_date)}
+            </span>
           </h4>
           <p className="text-sm mt-3">
             <span className="font-bold">Epitaph:</span>{" "}
