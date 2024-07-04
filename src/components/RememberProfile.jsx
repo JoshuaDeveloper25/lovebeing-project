@@ -1,4 +1,5 @@
 import TabLinkContent from "../pages/MyProfiles/components/TabLinkContent";
+import MansoryGallery from "../pages/Settings/components/MansoryGallery";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import UploadProfileImage from "../helpers/UploadProfileImage";
 import UploadGalleryImage from "../helpers/UploadGalleryImage";
@@ -293,56 +294,10 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
                     </div>
 
                     {/* Mansory Design */}
-                    {ownProfilesQuery?.data?.data
-                      ?.map((item) => item)
-                      ?.filter((item) => item?.id === +params?.id)[0]
-                      ?.gallery_images?.length !== 0 ? (
-                      <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
-                        {/* If there's images we apply the mansory design */}
-                        {ownProfilesQuery?.data?.data
-                          ?.map((item) => item)
-                          ?.filter((item) => item?.id === +params?.id)[0]
-                          ?.gallery_images?.map((item) => (
-                            <div key={item?.id}>
-                              <img
-                                className="h-auto max-w-full rounded-lg"
-                                src={`${item?.cloud_front_domain}/${item?.aws_file_name}`}
-                                loading="lazy"
-                                decoding="async"
-                              />
-                            </div>
-                          ))}
-                      </div>
-                    ) : (
-                      <h2 className="text-center text-xl my-8 text-primary-color font-bold">
-                        There's no images uploaded yet...
-                      </h2>
-                    )}
-                    {/* 
-                    <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
-                      {ownProfilesQuery?.data?.data
-                        ?.map((item) => item)
-                        ?.filter((item) => item?.id === +params?.id)[0]
-                        ?.gallery_images?.length > 1 ? (
-                        ownProfilesQuery?.data?.data
-                          ?.map((item) => item)
-                          ?.filter((item) => item?.id === +params?.id)[0]
-                          ?.gallery_images?.map((item) => (
-                            <div key={item?.id}>
-                              <img
-                                className="h-auto max-w-full rounded-lg"
-                                src={`${item?.cloud_front_domain}/${item?.aws_file_name}`}
-                                loading="lazy"
-                                decoding="async"
-                              />
-                            </div>
-                          ))
-                      ) : (
-                        <h2 className="text-center text-primary-color font-bold">
-                          There's no images uploaded
-                        </h2>
-                      )}
-                    </div> */}
+                    <MansoryGallery
+                      ownProfilesQuery={ownProfilesQuery}
+                      params={params}
+                    />
                   </TabLinkContent>
 
                   <TabLinkContent

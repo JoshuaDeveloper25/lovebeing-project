@@ -1,29 +1,30 @@
-import { FaPlus } from "react-icons/fa";
-import { useState } from "react";
-import Modal from "../components/Modal";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { toast } from "react-toastify";
-import getFastApiErrors from "../utils/getFastApiErrors";
-import ImagesHandle from "../components/ImagesHandle";
 import FormGalleryImages from "../pages/Settings/components/FormGalleryImages";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import getFastApiErrors from "../utils/getFastApiErrors";
+import { useParams } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
+import Modal from "../components/Modal";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import axios from "axios";
 
 const UploadGalleryImage = () => {
   const [openModalGallery, setOpenModalGallery] = useState(false);
   const [images, setImages] = useState([]);
   const queryClient = useQueryClient();
+  const params = useParams();
 
   const addGalleryImageMutation = useMutation({
     mutationFn: async (imageInfo) =>
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/remembereds/upload_cover_image/${
+        `${import.meta.env.VITE_BASE_URL}/remembereds/upload-gallery-image/${
           params?.id
         }`,
         imageInfo
       ),
     onSuccess: (res) => {
-      toast.success("¡Image uploaded successfully!");
-      queryClient.invalidateQueries(["galleryImages"]);
+      toast.success("Upload successfull!");
+      queryClient.invalidateQueries(["ownProfiles"]);
       setOpenModalGallery(false);
     },
     onError: (err) => {
@@ -32,29 +33,23 @@ const UploadGalleryImage = () => {
     },
   });
 
-  const handleSubmitGalleryImage = async (e) => {
+  const handleSubmitGalleryImage = (e) => {
     e.preventDefault();
 
     const user_request = confirm(`Are you sure you want to change the image?`);
 
     if (!user_request) {
       return;
+    } else if (images?.length === 0) {
+      return toast.error(`Upload 1 image at least!`);
     }
 
-    setCanvasPreview(
-      imgRef.current, // HTMLImageElement
-      previewCanvasRef.current, // HTMLCanvasElement
-      convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height)
-    );
-
-    const dataUrl = previewCanvasRef.current.toDataURL();
-    updateAvatar(dataUrl);
-
-    const blob = await fetch(dataUrl).then((res) => res.blob());
-    const file = new File([blob], "cover-image.png", { type: "image/png" });
-
     const formData = new FormData();
-    formData.append("file", file);
+
+    images.forEach((image, index) => {
+      formData.append("files", image.file);
+    });
+
     addGalleryImageMutation?.mutate(formData);
   };
 
@@ -70,12 +65,16 @@ const UploadGalleryImage = () => {
 
       {/* Add Gallery Image Modal */}
       <Modal
-        titleModal={"Change Profile Image"}
+        titleModal={"Add Gallery Images"}
         handleSubmit={handleSubmitGalleryImage}
         setOpenModal={setOpenModalGallery}
         openModal={openModalGallery}
       >
-        <FormGalleryImages setImages={setImages} images={images} />
+        <FormGalleryImages
+          isPending={addGalleryImageMutation?.isPending}
+          setImages={setImages}
+          images={images}
+        />
       </Modal>
     </>
   );

@@ -1,13 +1,16 @@
 import ImagesHandle from "../../../components/ImagesHandle";
+import ButtonForm from "../../../components/ButtonForm";
 
-const FormGalleryImages = ({ setImages, images }) => {
+const FormGalleryImages = ({ isPending, setImages, images }) => {
   return (
     <>
       <ImagesHandle setImages={setImages} images={images} />
-      
-      <button type="submit" className="btn btn-blue">
-        Upload Images
-      </button>
+
+      <ButtonForm
+        isPending={isPending}
+        statusOn={"Uploading..."}
+        statusOff={"Upload"}
+      />
     </>
   );
 };

@@ -19,10 +19,12 @@
     "react-image-crop": "^11.0.5",
     "react-images-uploading": "^3.1.7",
     "react-pro-sidebar": "^1.1.0",
+    "react-responsive-masonry": "^2.2.1",
     "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.12.1",
-    "swiper": "^11.1.4"
+    "swiper": "^11.1.4",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

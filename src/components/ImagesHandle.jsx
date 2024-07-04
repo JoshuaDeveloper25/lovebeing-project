@@ -12,10 +12,16 @@ const ImagesHandle = ({ setImages, images }) => {
     // data for submit
     // console.log(imageList, addUpdateIndex);
     setImages(imageList);
+    console.log(imageList);
   };
 
   return (
-    <ReactImageUploading multiple={true} onChange={onChange} value={images}>
+    <ReactImageUploading
+      acceptType={["jpg", "jpeg"]}
+      multiple={true}
+      onChange={onChange}
+      value={images}
+    >
       {({
         onImageUpload,
         onImageUpdate,
@@ -37,16 +43,16 @@ const ImagesHandle = ({ setImages, images }) => {
           </div>
 
           {images?.length !== 0 && (
-            <ul className="flex gap-5 py-5 overflow-x-auto">
+            <ul className="flex gap-5 overflow-x-auto w-full max-w-lg my-5 py-5">
               {images?.map((item, idx) => (
-                <li key={idx} className="relative">
-                  <div className="relative">
+                <li key={idx} className="h-32 min-w-32 relative">
+                  <div className="h-32 min-w-32 relative">
                     <img
                       loading="lazy"
                       decoding="async"
                       src={`${item?.dataURL}`}
                       alt="Image"
-                      className="h-20 object-cover"
+                      className="h-full w-full object-cover"
                     />
                   </div>
 

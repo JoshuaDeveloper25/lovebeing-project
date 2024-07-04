@@ -47,7 +47,7 @@ const Carousel = ({ rememberedProfiles }) => {
             spaceBetween: 30,
           },
         }}
-        loop={true}
+        loop={false}
       >
         {rememberedProfiles
           ?.filter((item) => item?.id !== +params?.id)
