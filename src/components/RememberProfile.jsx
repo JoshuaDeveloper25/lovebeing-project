@@ -1,5 +1,8 @@
+import TabLinkContent from "../pages/MyProfiles/components/TabLinkContent";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import UploadProfileImage from "../helpers/UploadProfileImage";
+import UploadGalleryImage from "../helpers/UploadGalleryImage";
+import TabLink from "../pages/MyProfiles/components/TabLink";
 import UploadCoverImage from "../helpers/UploadCoverImage";
 import { getLivedDays } from "../utils/getLivedDays";
 import { useQuery } from "@tanstack/react-query";
@@ -12,6 +15,7 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
   const [triggerEffect, setTriggerEffect] = useState(false);
   const [profilePosition, setProfilePosition] = useState("left");
   const [profileShapeImage, setProfileShapeImage] = useState("circle");
+  const [openTab, setOpenTab] = useState(1);
   const params = useParams();
 
   const { data, isPending, error } = useQuery({
@@ -219,7 +223,7 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
               <span className="block font-bold mb-1 text-sm"> Lifetime:</span>{" "}
               {data?.data?.birth_date} <span className="font-bold mx-1">X</span>{" "}
               {data?.data?.death_date}{" "}
-              <span className="block">
+              <span className="block font-bold">
                 {getLivedDays(data?.data?.birth_date, data?.data?.death_date)}{" "}
               </span>
             </p>
@@ -249,78 +253,103 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
             </h2>
             <Carousel rememberedProfiles={ownProfilesQuery?.data?.data} />
 
-            <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
-              <div className="grid gap-4">
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-                    alt=""
-                  />
-                </div>
+            <ul
+              className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
+              role="tablist"
+            >
+              <TabLink
+                setOpenTab={setOpenTab}
+                textTab={"Media"}
+                linkTab={"#media"}
+                // iconTab={<FaCross className="text-primary-color" />}
+                openTab={openTab}
+                numberTab={1}
+              />
 
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-                    alt=""
-                  />
-                </div>
+              <TabLink
+                setOpenTab={setOpenTab}
+                linkTab={"#favourites"}
+                textTab={"Favourites"}
+                // iconTab={<FaHeart className="text-red-500" />}
+                openTab={openTab}
+                numberTab={2}
+              />
+            </ul>
 
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-                    alt=""
-                  />
-                </div>
-              </div>
+            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+              <div className="px-4 py-5 flex-auto">
+                <div className="tab-content tab-space">
+                  <TabLinkContent
+                    openTab={openTab}
+                    numberTab={1}
+                    idTab={"#media"}
+                  >
+                    <div className="flex flex-col sm:flex-row justify-between items-center mb-7">
+                      <h2 className="text-primary-color font-bold text-xl sm:my-0 my-3">
+                        Photos
+                      </h2>
 
-              <div className="grid gap-4">
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-                    alt=""
-                  />
-                </div>
-              </div>
+                      <UploadGalleryImage />
+                    </div>
 
-              <div className="grid gap-4">
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <img
-                    className="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-                    alt=""
-                  />
+                    {/* Mansory Design */}
+                    {ownProfilesQuery?.data?.data
+                      ?.map((item) => item)
+                      ?.filter((item) => item?.id === +params?.id)[0]
+                      ?.gallery_images?.length !== 0 ? (
+                      <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+                        {/* If there's images we apply the mansory design */}
+                        {ownProfilesQuery?.data?.data
+                          ?.map((item) => item)
+                          ?.filter((item) => item?.id === +params?.id)[0]
+                          ?.gallery_images?.map((item) => (
+                            <div key={item?.id}>
+                              <img
+                                className="h-auto max-w-full rounded-lg"
+                                src={`${item?.cloud_front_domain}/${item?.aws_file_name}`}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                          ))}
+                      </div>
+                    ) : (
+                      <h2 className="text-center text-xl my-8 text-primary-color font-bold">
+                        There's no images uploaded yet...
+                      </h2>
+                    )}
+                    {/* 
+                    <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
+                      {ownProfilesQuery?.data?.data
+                        ?.map((item) => item)
+                        ?.filter((item) => item?.id === +params?.id)[0]
+                        ?.gallery_images?.length > 1 ? (
+                        ownProfilesQuery?.data?.data
+                          ?.map((item) => item)
+                          ?.filter((item) => item?.id === +params?.id)[0]
+                          ?.gallery_images?.map((item) => (
+                            <div key={item?.id}>
+                              <img
+                                className="h-auto max-w-full rounded-lg"
+                                src={`${item?.cloud_front_domain}/${item?.aws_file_name}`}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                          ))
+                      ) : (
+                        <h2 className="text-center text-primary-color font-bold">
+                          There's no images uploaded
+                        </h2>
+                      )}
+                    </div> */}
+                  </TabLinkContent>
+
+                  <TabLinkContent
+                    openTab={openTab}
+                    numberTab={2}
+                    idTab={"#favourites"}
+                  ></TabLinkContent>
                 </div>
               </div>
             </div>

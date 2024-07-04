@@ -15,7 +15,7 @@ const ImagesHandle = ({ setImages, images }) => {
   };
 
   return (
-    <ReactImageUploading multiple={false} onChange={onChange} value={images}>
+    <ReactImageUploading multiple={true} onChange={onChange} value={images}>
       {({
         onImageUpload,
         onImageUpdate,
@@ -36,18 +36,18 @@ const ImagesHandle = ({ setImages, images }) => {
             </button>
           </div>
 
-          {images.length !== 0 && (
-            <ul className="flex gap-5 py-5">
+          {images?.length !== 0 && (
+            <ul className="flex gap-5 py-5 overflow-x-auto">
               {images?.map((item, idx) => (
                 <li key={idx} className="relative">
                   <div className="relative">
-                        <img
-                          loading="lazy"
-                          decoding="async"
-                          src={`${item?.dataURL}`}
-                          alt="Image"
-                          className="w-full"
-                        />
+                    <img
+                      loading="lazy"
+                      decoding="async"
+                      src={`${item?.dataURL}`}
+                      alt="Image"
+                      className="h-20 object-cover"
+                    />
                   </div>
 
                   <div className="image-item__btn-wrapper absolute flex gap-2 -right-3 -top-3">
