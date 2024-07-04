@@ -127,11 +127,16 @@ const Profile = ({ item, isPending }) => {
           </h2>
         </div>
 
-        <div className="mt-4">
-          <h4 className="text-gray-700 font-medium text-xs text-center">
+        <div className="mt-4 text-center">
+          <h4 className="text-gray-700 font-medium text-xs">
             {item?.birth_date} - {item?.death_date}
           </h4>
-          <p className="text-sm mt-3">{item?.epitaph}</p>
+          <p className="text-sm mt-3">
+            <span className="font-bold">Epitaph:</span>{" "}
+            <span className="text-gray-900">
+              {item?.epitaph || "In Loving Memory Of"}
+            </span>
+          </p>
         </div>
 
         <div className="my-4">
