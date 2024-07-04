@@ -26,6 +26,7 @@ const UploadGalleryImage = () => {
       toast.success("Upload successfull!");
       queryClient.invalidateQueries(["ownProfiles"]);
       setOpenModalGallery(false);
+      setImages([]);
     },
     onError: (err) => {
       console.log(err);

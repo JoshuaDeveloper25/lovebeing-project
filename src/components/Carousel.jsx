@@ -13,13 +13,17 @@ const Carousel = ({ rememberedProfiles }) => {
 
   return (
     <div className="relative mb-8">
-      <div className="swiper-button image-swiper-button-next absolute z-50 cursor-pointer top-24 xl:-right-7 right-0">
-        <IoIosArrowForward className="text-white bg-black/50 rounded-full p-1 size-6" />
-      </div>
+      {rememberedProfiles?.length === 0 ? null : (
+        <>
+          <div className="swiper-button image-swiper-button-next absolute z-50 cursor-pointer top-24 xl:-right-7 right-0">
+            <IoIosArrowForward className="text-white bg-black/50 rounded-full p-1 size-6" />
+          </div>
 
-      <div className="swiper-button image-swiper-button-prev absolute z-50 cursor-pointer top-24 xl:-left-7 left-0">
-        <IoIosArrowBack className="text-white bg-black/50 rounded-full p-1 size-6" />
-      </div>
+          <div className="swiper-button image-swiper-button-prev absolute z-50 cursor-pointer top-24 xl:-left-7 left-0">
+            <IoIosArrowBack className="text-white bg-black/50 rounded-full p-1 size-6" />
+          </div>
+        </>
+      )}
 
       <Swiper
         centeredSlides={false}
@@ -54,7 +58,7 @@ const Carousel = ({ rememberedProfiles }) => {
           ?.map((remember, index) => (
             <SwiperSlide
               key={index}
-              className="bg-white border shadow-xl rounded-md py-3 px-3"
+              className="bg-white border-2 shadow-xl rounded-md py-3 px-3"
             >
               <img
                 className="w-44 mx-auto"

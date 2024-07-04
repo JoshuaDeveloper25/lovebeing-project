@@ -37,7 +37,7 @@ const Form = ({ isPending }) => {
 
         <div className="col-span-2">
           <InputForm
-            inputLabel="Epitaph"
+            inputLabel="Epitaph (Optional)"
             inputClassNameAdd={"mb-1"}
             inputType="text"
             inputName="epitaph"

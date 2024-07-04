@@ -202,7 +202,7 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
 
         {/* Desktop - from 768px to up */}
         <div className="grid md:grid-cols-4 grid-cols-1 items-start md:gap-8 px-5">
-          <article className="col-span-1 sticky top-0 min-w-52 text-center border md:mb-0 mb-8 bg-white shadow-2xl rounded-xl md:-mt-12 py-5 px-4 md:block hidden">
+          <article className="col-span-1 sticky top-0 min-w-44 text-center border md:mb-0 mb-8 bg-white shadow-2xl rounded-xl md:-mt-12 py-5 px-4 md:block hidden">
             <div className="relative">
               <img
                 className="w-36 h-36 object-cover mx-auto rounded-full shadow-lg"
@@ -249,10 +249,12 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
           </article>
 
           <article className="col-span-3 my-8">
-            <h2 className="font-bold text-primary-color text-xl mb-2">
-              My family members...
-            </h2>
-            <Carousel rememberedProfiles={ownProfilesQuery?.data?.data} />
+            <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+              <h2 className="font-bold text-primary-color text-xl mb-2">
+                My family members...
+              </h2>
+              <Carousel rememberedProfiles={ownProfilesQuery?.data?.data} />
+            </div>
 
             <ul
               className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
@@ -277,7 +279,7 @@ const RememberProfile = ({ queryKey, apiUrl }) => {
               />
             </ul>
 
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <div className="relative flex flex-col min-w-0 break-words bg-white rounded-lg w-full mb-6 shadow-lg">
               <div className="px-4 py-5 flex-auto">
                 <div className="tab-content tab-space">
                   <TabLinkContent
